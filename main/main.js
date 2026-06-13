@@ -3,22 +3,15 @@ const search = document.getElementById("search");
 const tagArea = document.getElementById("tagArea");
 
 const popup = document.getElementById("popup");
-const popupImg = document.getElementById("popupImg");
-
+const popupContent = document.getElementById("popupContent");
 const closeBtn = document.getElementById("close");
-const prevBtn = document.getElementById("prev");
-const nextBtn = document.getElementById("next");
-const counter = document.getElementById("counter");
 
 let data = [];
 let selectedTag = "";
 
-let currentImages = [];
-let currentIndex = 0;
-
 fetch("main.json")
-.then(r=>r.json())
-.then(json=>{
+.then(r => r.json())
+.then(json => {
 
     data = json;
 
@@ -31,9 +24,9 @@ function createTags(){
 
     const tags = new Set();
 
-    data.forEach(item=>{
+    data.forEach(item => {
 
-        item.tags.forEach(tag=>{
+        item.tags.forEach(tag => {
 
             tags.add(tag);
 
@@ -41,14 +34,14 @@ function createTags(){
 
     });
 
-    tags.forEach(tag=>{
+    tags.forEach(tag => {
 
         const btn = document.createElement("div");
 
         btn.className = "tag";
         btn.textContent = tag;
 
-        btn.onclick = ()=>{
+        btn.onclick = () => {
 
             if(selectedTag === tag){
 
@@ -62,7 +55,7 @@ function createTags(){
 
             document
             .querySelectorAll(".tag")
-            .forEach(t=>t.classList.remove("active"));
+            .forEach(t => t.classList.remove("active"));
 
             if(selectedTag){
 
@@ -88,14 +81,15 @@ function render(){
         search.value.toLowerCase();
 
     data
-    .filter(item=>{
+    .filter(item => {
 
         const nameMatch =
-            item.name.toLowerCase()
+            item.name
+            .toLowerCase()
             .includes(keyword);
 
         const tagMatch =
-            item.tags.some(tag=>
+            item.tags.some(tag =>
                 tag.toLowerCase()
                 .includes(keyword)
             );
@@ -113,7 +107,7 @@ function render(){
                selectedMatch;
 
     })
-    .forEach(item=>{
+    .forEach(item => {
 
         const card =
             document.createElement("div");
@@ -128,13 +122,13 @@ function render(){
         const img =
             document.createElement("img");
 
-        img.src = item.images[0];
+        img.src =
+            item.images[0];
 
-        img.onclick = ()=>{
+        img.onclick = () => {
 
             openGallery(
-                item.images,
-                0
+                item.images
             );
 
         };
@@ -147,62 +141,33 @@ function render(){
 
 }
 
-function openGallery(images,index){
+function openGallery(images){
 
-    currentImages = images;
-    currentIndex = index;
+    popupContent.innerHTML = "";
+
+    images.forEach(src => {
+
+        const img =
+            document.createElement("img");
+
+        img.src = src;
+
+        popupContent.appendChild(img);
+
+    });
+
+    popup.style.display = "block";
 
     document.body.style.overflow =
         "hidden";
-
-    popup.style.display = "flex";
-
-    updateImage();
-
-}
-
-function updateImage(){
-
-    popupImg.src =
-        currentImages[currentIndex];
-
-    counter.textContent =
-        `${currentIndex + 1} / ${currentImages.length}`;
-
-}
-
-function nextImage(){
-
-    currentIndex++;
-
-    if(currentIndex >= currentImages.length){
-
-        currentIndex = 0;
-
-    }
-
-    updateImage();
-
-}
-
-function prevImage(){
-
-    currentIndex--;
-
-    if(currentIndex < 0){
-
-        currentIndex =
-            currentImages.length - 1;
-
-    }
-
-    updateImage();
 
 }
 
 function closeGallery(){
 
     popup.style.display = "none";
+
+    popupContent.innerHTML = "";
 
     document.body.style.overflow =
         "";
@@ -214,86 +179,23 @@ search.addEventListener(
     render
 );
 
-nextBtn.onclick =
-    nextImage;
-
-prevBtn.onclick =
-    prevImage;
-
 closeBtn.onclick =
     closeGallery;
 
-popup.onclick = (e)=>{
-
-    if(e.target === popup){
-
-        closeGallery();
-
-    }
-
-};
-
 document.addEventListener(
     "keydown",
-    (e)=>{
-if(
+    (e) => {
+
+        if(
             popup.style.display !==
-            "flex"
+            "block"
         ) return;
 
-        if(e.key === "ArrowRight"){
-
-            nextImage();
-
-        }
-
-        if(e.key === "ArrowLeft"){
-
-            prevImage();
-
-        }
-
-        if(e.key === "Escape"){
+        if(
+            e.key === "Escape"
+        ){
 
             closeGallery();
-
-        }
-
-    }
-);
-
-let startX = 0;
-
-popup.addEventListener(
-    "touchstart",
-    (e)=>{
-
-        startX =
-            e.touches[0].clientX;
-
-    }
-);
-
-popup.addEventListener(
-    "touchend",
-    (e)=>{
-
-        const endX =
-            e.changedTouches[0]
-            .clientX;
-
-        const diff =
-            startX - endX;
-
-        if(diff > 50){
-
-            nextImage();
-
-        }
-
-        if(diff < -50){
-
-            prevImage();
 
         }
 
