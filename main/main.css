@@ -6,7 +6,7 @@
 
 body{
     background:#000;
-    color:white;
+    color:#fff;
     font-family:sans-serif;
 }
 
@@ -20,9 +20,10 @@ body{
 
 #search{
     width:100%;
-    padding:10px;
+    padding:12px;
     background:#222;
     border:none;
+    border-radius:10px;
     color:white;
     font-size:16px;
 }
@@ -36,66 +37,116 @@ body{
 
 .tag{
     background:#333;
-    padding:6px 12px;
+    padding:8px 14px;
     border-radius:20px;
     cursor:pointer;
+    transition:.2s;
+}
+
+.tag:hover{
+    background:#444;
 }
 
 .tag.active{
-    background:#fff;
-    color:#000;
+    background:white;
+    color:black;
 }
 
 #gallery{
     padding:20px;
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:20px;
 }
 
 .card{
     background:#111;
     border-radius:15px;
-    padding:15px;
-    margin-bottom:20px;
+    overflow:hidden;
 }
 
 .card h2{
-    margin-bottom:10px;
+    padding:12px 12px 0;
+    font-size:18px;
 }
 
-.single img{
+.card p{
+    padding:8px 12px 12px;
+    color:#aaa;
+}
+
+.card img{
     width:100%;
-    max-width:400px;
+    display:block;
     cursor:pointer;
-}
-
-.multi{
-    max-height:600px;
-    overflow-y:auto;
-}
-
-.multi img{
-    width:100%;
-    margin-bottom:10px;
 }
 
 #popup{
     display:none;
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.9);
+    background:rgba(0,0,0,.95);
     justify-content:center;
     align-items:center;
     z-index:9999;
 }
 
 #popup img{
-    max-width:90%;
-    max-height:90%;
+    max-width:95vw;
+    max-height:90vh;
+    object-fit:contain;
 }
 
 #close{
     position:absolute;
-    top:20px;
-    right:30px;
+    top:15px;
+    right:25px;
     font-size:40px;
+    color:white;
     cursor:pointer;
+}
+
+#prev,
+#next{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    border:none;
+    background:none;
+    color:white;
+    font-size:50px;
+    cursor:pointer;
+    user-select:none;
+}
+
+#prev{
+    left:20px;
+}
+
+#next{
+    right:20px;
+}
+
+#counter{
+    position:absolute;
+    bottom:20px;
+    color:white;
+    font-size:18px;
+}
+
+@media(max-width:768px){
+
+    #gallery{
+        grid-template-columns:1fr;
+    }
+
+    #prev,
+    #next{
+        font-size:35px;
+    }
+
+    #close{
+        font-size:32px;
+    }
+
 }
