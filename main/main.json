@@ -3,13 +3,26 @@
         "name": "諜報員ガーネット",
         "tags": ["ストーリー","スライム", "ケモ耳","アヘ顔"],
         "images": [
-            "../image/S1/
-S1.png",
-        "../image/S1/
-S2.png",
-        "../image/S1/
-S3.png"
-
+            "../image/S1/garnet1.png",
+            "../image/S1/garnet2.png",
+            "../image/S1/garnet3.png",
+            "../image/S1/garnet4.png",
+            "../image/S1/garnet5.png",
+            "../image/S1/garnet6.png",
+            "../image/S1/garnet7.png",
+            "../image/S1/garnet8.png",
+            "../image/S1/garnet9.png",
+            "../image/S1/garnet10.png",
+            "../image/S1/garnet11.png",
+            "../image/S1/garnet12.png",
+            "../image/S1/garnet13.png",
+            "../image/S1/garnet14.png",
+            "../image/S1/garnet15.png",
+            "../image/S1/garnet16.png",
+            "../image/S1/garnet17.png",
+            "../image/S1/garnet18.png",
+            "../image/S1/garnet19.png",
+            "../image/S1/garnet20.png"
         ]
     },
 
